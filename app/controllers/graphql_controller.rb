@@ -5,7 +5,12 @@ class GraphqlController < ApplicationController
     variables = prepare_variables(params[:variables])
     query = params[:query]
     operation_name = params[:operationName]
-    result = ApiComparisonSchema.execute(query, variables: variables, operation_name: operation_name)
+    result = ApiComparisonSchema.execute(
+      query,
+      variables: variables,
+      context: {},
+      operation_name: operation_name
+    )
     render json: result
   rescue StandardError => e
     raise e unless Rails.env.development?
