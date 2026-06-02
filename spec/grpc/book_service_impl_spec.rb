@@ -6,7 +6,7 @@ RSpec.describe BookServiceImpl do
   let(:author) { Author.create!(name: 'Test Author') }
 
   describe '#list_books' do
-    it 'returns all books' do
+    it 'returns all books', :aggregate_failures do
       Book.create!(title: 'Book One', published_year: 2020, author: author)
 
       response = service.list_books(Bookshelf::ListBooksRequest.new, nil)
