@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package bookshelf;
+
+service BookService {
+  rpc ListBooks    (ListBooksRequest)    returns (ListBooksResponse);
+  rpc GetBook      (GetBookRequest)      returns (BookResponse);
+  rpc CreateBook   (CreateBookRequest)   returns (BookResponse);
+  rpc CreateAuthor (CreateAuthorRequest) returns (AuthorResponse);
+}
+
+message ListBooksRequest {}
+
+message ListBooksResponse {
+  repeated BookMessage books = 1;
+}
+
+message GetBookRequest {
+  string id = 1;
+}
+
+message CreateBookRequest {
+  string title         = 1;
+  int32  published_year = 2;
+  string author_id     = 3;
+}
+
+message CreateAuthorRequest {
+  string name = 1;
+  string bio  = 2;
+}
+
+message BookMessage {
+  string        id            = 1;
+  string        title         = 2;
+  int32         published_year = 3;
+  AuthorMessage author        = 4;
+}
+
+message AuthorMessage {
+  string id   = 1;
+  string name = 2;
+  string bio  = 3;
+}
+
+message BookResponse {
+  BookMessage     book   = 1;
+  repeated string errors = 2;
+}
+
+message AuthorResponse {
+  AuthorMessage   author = 1;
+  repeated string errors = 2;
+}
