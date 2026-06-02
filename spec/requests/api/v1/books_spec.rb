@@ -44,7 +44,7 @@ RSpec.describe 'POST /api/v1/books', type: :request do
   it 'returns 422 when title is blank', :aggregate_failures do
     post '/api/v1/books', params: { title: '', published_year: 2024, author_id: author.id }
 
-    expect(response).to have_http_status(:unprocessable_entity)
+    expect(response).to have_http_status(:unprocessable_content)
     expect(JSON.parse(response.body)['errors']).not_to be_empty
   end
 end

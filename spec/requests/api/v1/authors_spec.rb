@@ -11,7 +11,7 @@ RSpec.describe 'POST /api/v1/authors', type: :request do
   it 'returns 422 when name is blank', :aggregate_failures do
     post '/api/v1/authors', params: { name: '' }
 
-    expect(response).to have_http_status(:unprocessable_entity)
+    expect(response).to have_http_status(:unprocessable_content)
     expect(JSON.parse(response.body)['errors']).not_to be_empty
   end
 end
