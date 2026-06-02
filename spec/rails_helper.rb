@@ -39,6 +39,8 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = false
 
   config.before(:suite) do
+    # :transaction is safe here — gRPC specs call BookServiceImpl in-process,
+    # not against a live server, so all specs share the same DB connection.
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
   end
