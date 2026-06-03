@@ -2,8 +2,10 @@
 
 class GraphqlController < ApplicationController
   def execute
-    variables = prepare_variables(params[:variables])
     query = params[:query]
+    return render json: { errors: [ { message: "No query string was present" } ] }, status: :bad_request if query.blank?
+
+    variables = prepare_variables(params[:variables])
     operation_name = params[:operationName]
     result = ApiComparisonSchema.execute(
       query,
@@ -31,5 +33,7 @@ class GraphqlController < ApplicationController
     else
       raise ArgumentError, "Unexpected parameter: #{variables_param}"
     end
+  rescue JSON::ParserError
+    raise ArgumentError, "Variables must be valid JSON"
   end
 end

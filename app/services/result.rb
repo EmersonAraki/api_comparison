@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-Result = Struct.new(:success, :record, :errors, keyword_init: true) do
+Result = Data.define(:success, :record, :errors) do
   def success? = success
 end

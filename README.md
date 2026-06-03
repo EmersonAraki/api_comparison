@@ -26,7 +26,7 @@ docker compose up --build
 That's it. Compose starts three containers in the right order:
 
 1. **postgres** — waits until healthy
-2. **web** — runs `db:create db:migrate`, then starts Puma on port 3000
+2. **web** — runs `db:create db:migrate db:seed`, then starts Puma on port 3000
 3. **grpc** — waits for web to be healthy, then starts the gRPC server on port 50051
 
 To stop everything:
@@ -47,7 +47,7 @@ docker compose down -v
 
 ```bash
 bundle install
-bundle exec rails db:create db:migrate
+bundle exec rails db:create db:migrate db:seed
 gem install foreman
 foreman start
 ```
@@ -273,5 +273,3 @@ bundle exec rspec
 ## Notes
 
 **CORS:** Cross-origin requests from a browser are blocked by default. `config/initializers/cors.rb` has a commented-out `rack-cors` configuration. Uncomment it (and add `gem 'rack-cors'` to the Gemfile) if you want to call these APIs from a frontend app.
-
-**Seeds:** Run `bin/rails db:seed` (or `docker compose exec web bin/rails db:seed`) to load a sample author and two books so the README curl examples work immediately.
