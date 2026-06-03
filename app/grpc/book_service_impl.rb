@@ -7,10 +7,10 @@ class BookServiceImpl < Bookshelf::BookService::Service
   end
 
   def get_book(request, _call)
-    book = Books::FindService.new.call(id: request.id)
-    Bookshelf::BookResponse.new(book: book_to_message(book), errors: [])
-  rescue ActiveRecord::RecordNotFound
-    raise GRPC::NotFound.new("Book not found")
+    result = Books::FindService.new.call(id: request.id)
+    raise GRPC::NotFound.new("Book not found") unless result.success?
+
+    Bookshelf::BookResponse.new(book: book_to_message(result.record), errors: [])
   end
 
   def create_book(request, _call)
@@ -46,6 +46,8 @@ class BookServiceImpl < Bookshelf::BookService::Service
   end
 
   def author_to_message(author)
+    return Bookshelf::AuthorMessage.new if author.nil?
+
     Bookshelf::AuthorMessage.new(
       id: author.id.to_s,
       name: author.name,

@@ -12,9 +12,7 @@ module Types
     end
 
     def book(id:)
-      Books::FindService.new.call(id: id)
-    rescue ActiveRecord::RecordNotFound
-      nil
+      Books::FindService.new.call(id: id).record
     end
   end
 end

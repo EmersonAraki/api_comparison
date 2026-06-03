@@ -9,10 +9,12 @@ module Api
       end
 
       def show
-        book = Books::FindService.new.call(id: params[:id])
-        render json: book.as_json(include: :author)
-      rescue ActiveRecord::RecordNotFound
-        render json: { error: "Not found" }, status: :not_found
+        result = Books::FindService.new.call(id: params[:id])
+        if result.success?
+          render json: result.record.as_json(include: :author)
+        else
+          render json: { error: "Not found" }, status: :not_found
+        end
       end
 
       def create

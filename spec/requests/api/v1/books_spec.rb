@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe 'GET /api/v1/books', type: :request do
-  it 'returns a list of books' do
+  it 'returns a list of books', :aggregate_failures do
     author = Author.create!(name: 'Author')
     Book.create!(title: 'Book One', published_year: 2020, author: author)
 
@@ -13,7 +13,7 @@ RSpec.describe 'GET /api/v1/books', type: :request do
 end
 
 RSpec.describe 'GET /api/v1/books/:id', type: :request do
-  it 'returns the book' do
+  it 'returns the book', :aggregate_failures do
     author = Author.create!(name: 'Author')
     book = Book.create!(title: 'Book One', published_year: 2020, author: author)
 
