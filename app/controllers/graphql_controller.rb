@@ -13,8 +13,8 @@ class GraphqlController < ApplicationController
     )
     render json: result
   rescue StandardError => e
-    raise e unless Rails.env.development?
     logger.error e.message
+    raise e if Rails.env.production?
     render json: { errors: [ { message: e.message } ], data: {} }, status: :internal_server_error
   end
 
