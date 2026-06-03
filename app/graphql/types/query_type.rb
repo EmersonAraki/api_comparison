@@ -12,7 +12,8 @@ module Types
     end
 
     def book(id:)
-      Books::FindService.new.call(id: id).record
+      result = Books::FindService.new.call(id: id)
+      result.record
     end
   end
 end

@@ -2,7 +2,7 @@
 
 RSpec.describe Books::ListService do
   describe '#call' do
-    it 'returns all books with authors eager-loaded' do
+    it 'returns all books with authors eager-loaded', :aggregate_failures do
       author = Author.create!(name: 'Author')
       book = Book.create!(title: 'Book', published_year: 2020, author: author)
 
