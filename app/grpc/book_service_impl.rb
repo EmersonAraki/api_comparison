@@ -2,8 +2,8 @@
 
 class BookServiceImpl < Bookshelf::BookService::Service
   def list_books(_request, _call)
-    books = Books::ListService.new.call
-    Bookshelf::ListBooksResponse.new(books: books.map { |b| book_to_message(b) })
+    result = Books::ListService.new.call
+    Bookshelf::ListBooksResponse.new(books: result.record.map { |b| book_to_message(b) })
   end
 
   def get_book(request, _call)

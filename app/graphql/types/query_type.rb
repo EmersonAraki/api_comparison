@@ -8,7 +8,7 @@ module Types
     end
 
     def books
-      Books::ListService.new.call
+      Books::ListService.new.call.record
     end
 
     def book(id:)

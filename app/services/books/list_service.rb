@@ -3,7 +3,7 @@
 module Books
   class ListService
     def call
-      Book.includes(:author).to_a
+      Result.new(success: true, record: Book.includes(:author).to_a, errors: [])
     end
   end
 end
