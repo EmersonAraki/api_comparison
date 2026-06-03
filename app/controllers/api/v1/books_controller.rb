@@ -4,8 +4,8 @@ module Api
   module V1
     class BooksController < ApplicationController
       def index
-        books = Books::ListService.new.call
-        render json: books.as_json(include: :author)
+        result = Books::ListService.new.call
+        render json: result.record.as_json(include: :author)
       end
 
       def show
@@ -19,15 +19,21 @@ module Api
 
       def create
         result = Books::CreateService.new.call(
-          title: params[:title],
-          published_year: params[:published_year],
-          author_id: params[:author_id]
+          title: book_params[:title],
+          published_year: book_params[:published_year],
+          author_id: book_params[:author_id]
         )
         if result.success?
-          render json: result.record, status: :created
+          render json: result.record.as_json(include: :author), status: :created
         else
           render json: { errors: result.errors }, status: :unprocessable_content
         end
+      end
+
+      private
+
+      def book_params
+        params.permit(:title, :published_year, :author_id)
       end
     end
   end
