@@ -3,7 +3,7 @@
 module Books
   class ListService
     def call
-      Book.includes(:author).all
+      Book.includes(:author).to_a
     end
   end
 end

@@ -267,3 +267,11 @@ bundle exec rspec
 ```
 
 35 examples covering all three protocol layers.
+
+---
+
+## Notes
+
+**CORS:** Cross-origin requests from a browser are blocked by default. `config/initializers/cors.rb` has a commented-out `rack-cors` configuration. Uncomment it (and add `gem 'rack-cors'` to the Gemfile) if you want to call these APIs from a frontend app.
+
+**Seeds:** Run `bin/rails db:seed` (or `docker compose exec web bin/rails db:seed`) to load a sample author and two books so the README curl examples work immediately.
