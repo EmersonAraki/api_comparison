@@ -179,10 +179,6 @@ curl -sSL "https://github.com/fullstorydev/grpcurl/releases/download/v${GRPCURL_
   | tar -xz -C /usr/local/bin grpcurl
 ```
 
-Or via Go (if Go 1.21+ is installed):
-```bash
-go install github.com/fullstorydev/grpcurl/cmd/grpcurl@latest
-```
 
 **Service definition** (`protos/books.proto`):
 
