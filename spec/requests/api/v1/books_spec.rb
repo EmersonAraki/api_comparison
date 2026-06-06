@@ -10,6 +10,16 @@ RSpec.describe 'GET /api/v1/books', type: :request do
     expect(response).to have_http_status(:ok)
     expect(JSON.parse(response.body).length).to eq(1)
   end
+
+  it 'returns JSON 500 when an unexpected error occurs', :aggregate_failures do
+    allow_any_instance_of(Books::ListService).to receive(:call).and_raise(StandardError, 'db failure')
+
+    get '/api/v1/books'
+
+    body = JSON.parse(response.body)
+    expect(response).to have_http_status(:internal_server_error)
+    expect(body).to have_key('errors')
+  end
 end
 
 RSpec.describe 'GET /api/v1/books/:id', type: :request do
@@ -45,6 +55,6 @@ RSpec.describe 'POST /api/v1/books', type: :request do
     post '/api/v1/books', params: { title: '', published_year: 2024, author_id: author.id }
 
     expect(response).to have_http_status(:unprocessable_content)
-    expect(JSON.parse(response.body)['errors']).not_to be_empty
+    expect(JSON.parse(response.body)['errors']).to include("Title can't be blank")
   end
 end
