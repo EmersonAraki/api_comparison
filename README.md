@@ -167,8 +167,21 @@ gRPC uses binary-encoded messages (Protocol Buffers) over HTTP/2. The API is def
 
 **Install grpcurl:**
 
+macOS:
 ```bash
 brew install grpcurl
+```
+
+Linux (download the prebuilt binary):
+```bash
+GRPCURL_VERSION=1.9.1
+curl -sSL "https://github.com/fullstorydev/grpcurl/releases/download/v${GRPCURL_VERSION}/grpcurl_${GRPCURL_VERSION}_linux_amd64.tar.gz" \
+  | tar -xz -C /usr/local/bin grpcurl
+```
+
+Or via Go (if Go 1.21+ is installed):
+```bash
+go install github.com/fullstorydev/grpcurl/cmd/grpcurl@latest
 ```
 
 **Service definition** (`protos/books.proto`):
