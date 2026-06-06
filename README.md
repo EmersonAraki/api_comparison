@@ -268,17 +268,6 @@ bundle exec rspec
 ```
 
 38 examples covering all three protocol layers.
-
-## CI
-
-GitHub Actions runs three jobs on every pull request and push to `main`:
-
-| Job | What it checks |
-|-----|----------------|
-| `scan_ruby` | Brakeman (static security analysis) + bundler-audit (CVE scan) |
-| `lint` | RuboCop with `rubocop-rails-omakase` style rules |
-| `test` | Full RSpec suite against a PostgreSQL 16 service container |
-
 ---
 
 ## Notes
