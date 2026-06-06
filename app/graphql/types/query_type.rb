@@ -13,7 +13,7 @@ module Types
 
     def book(id:)
       result = Books::FindService.new.call(id: id)
-      result.record
+      result.record if result.success?
     end
   end
 end
