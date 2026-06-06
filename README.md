@@ -197,23 +197,31 @@ service BookService {
 
 **Try it:**
 
+Run these commands from the project root — the `-proto` flag tells grpcurl where to find the schema (the server does not enable the reflection API).
+
 ```bash
 # Create an author
 grpcurl -plaintext \
+  -proto protos/books.proto \
   -d '{ "name": "Ursula K. Le Guin", "bio": "American author of speculative fiction." }' \
   localhost:50051 bookshelf.BookService/CreateAuthor
 
 # Create a book (replace author_id with the id from the response above)
 grpcurl -plaintext \
+  -proto protos/books.proto \
   -d '{ "title": "The Left Hand of Darkness", "published_year": 1969, "author_id": "1" }' \
   localhost:50051 bookshelf.BookService/CreateBook
 
 # List all books
-grpcurl -plaintext -d '{}' \
+grpcurl -plaintext \
+  -proto protos/books.proto \
+  -d '{}' \
   localhost:50051 bookshelf.BookService/ListBooks
 
 # Get a single book
-grpcurl -plaintext -d '{ "id": "1" }' \
+grpcurl -plaintext \
+  -proto protos/books.proto \
+  -d '{ "id": "1" }' \
   localhost:50051 bookshelf.BookService/GetBook
 ```
 
