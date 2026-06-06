@@ -13,7 +13,9 @@ Rails.application.configure do
   # this is usually not necessary, and can slow down your test suite. However, it's
   # recommended that you enable it in continuous integration systems to ensure eager
   # loading is working properly before deploying your code.
-  config.eager_load = ENV["CI"].present?
+  # gRPC C extension blocks on initialization in CI's sandboxed network;
+  # keep eager_load off so BookServiceImpl is loaded lazily by specs only.
+  config.eager_load = false
 
   # Configure public file server for tests with cache-control for performance.
   config.public_file_server.headers = { "cache-control" => "public, max-age=3600" }

@@ -56,9 +56,14 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
 
-  # gRPC's C extension starts background polling threads that prevent clean
-  # process exit. Force exit once RSpec finishes to avoid CI hangs.
+  # gRPC's C extension starts background polling threads that block normal
+  # process exit. Register a force-exit after RSpec's summary is printed.
   config.after(:suite) do
-    Process.exit!(RSpec.world.non_example_failure ? 1 : 0) if defined?(GRPC)
+    next unless defined?(GRPC)
+    at_exit do
+      $stdout.flush
+      $stderr.flush
+      Process.exit!(RSpec.world.non_example_failure ? 1 : 0)
+    end
   end
 end
