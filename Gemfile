@@ -14,6 +14,9 @@ gem 'grpc', '~> 1.65'
 
 group :development do
   gem 'grpc-tools', '~> 1.65'
+  gem 'brakeman', require: false
+  gem 'rubocop-rails-omakase', require: false
+  gem 'bundler-audit', require: false
 end
 
 group :development, :test do
