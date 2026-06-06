@@ -22,7 +22,9 @@ services:
     ports:
       - "3000:3000"
     environment:
+      RAILS_ENV: development
       DATABASE_URL: postgresql://postgres:password@postgres/api_comparison_development
+      DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL: "true"
     depends_on:
       postgres:
         condition: service_healthy
@@ -41,6 +43,7 @@ services:
     ports:
       - "50051:50051"
     environment:
+      RAILS_ENV: development
       DATABASE_URL: postgresql://postgres:password@postgres/api_comparison_development
     depends_on:
       web:

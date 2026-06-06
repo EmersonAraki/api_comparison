@@ -282,5 +282,8 @@ spec/
 ## Running tests
 
 ```bash
-docker compose run --rm web bundle exec rspec
+docker compose run --rm \
+  -e RAILS_ENV=test \
+  -e DATABASE_URL=postgresql://postgres:password@postgres/api_comparison_test \
+  web bash -c "bundle exec rails db:create db:migrate && bundle exec rspec"
 ```
