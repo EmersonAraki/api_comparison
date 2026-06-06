@@ -3,7 +3,7 @@ services:
     image: postgres:16
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      POSTGRES_PASSWORD: password  # local dev only — override via env for CI/staging
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
