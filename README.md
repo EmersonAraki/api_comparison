@@ -168,17 +168,18 @@ gRPC uses binary-encoded messages (Protocol Buffers) over HTTP/2. The API is def
 **Install grpcurl:**
 
 macOS:
+
 ```bash
 brew install grpcurl
 ```
 
 Linux (download the prebuilt binary):
+
 ```bash
 GRPCURL_VERSION=1.9.1
 curl -sSL "https://github.com/fullstorydev/grpcurl/releases/download/v${GRPCURL_VERSION}/grpcurl_${GRPCURL_VERSION}_linux_amd64.tar.gz" \
   | tar -xz -C /usr/local/bin grpcurl
 ```
-
 
 **Service definition** (`protos/books.proto`):
 
@@ -281,12 +282,5 @@ spec/
 ## Running tests
 
 ```bash
-bundle exec rspec
+docker compose run --rm web bundle exec rspec
 ```
-
-38 examples covering all three protocol layers.
----
-
-## Notes
-
-**CORS:** Cross-origin requests from a browser are blocked by default. `config/initializers/cors.rb` has a commented-out `rack-cors` configuration. Uncomment it (and add `gem 'rack-cors'` to the Gemfile) if you want to call these APIs from a frontend app.
