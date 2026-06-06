@@ -98,6 +98,7 @@ curl http://localhost:3000/api/v1/books/1
 
 - `404` with `{ "error": "Not found" }` when a book does not exist
 - `422` with `{ "errors": ["Title can't be blank"] }` on validation failure
+- `500` with `{ "errors": ["Internal server error"] }` on unexpected errors
 
 ---
 
@@ -266,7 +267,17 @@ spec/
 bundle exec rspec
 ```
 
-35 examples covering all three protocol layers.
+38 examples covering all three protocol layers.
+
+## CI
+
+GitHub Actions runs three jobs on every pull request and push to `main`:
+
+| Job | What it checks |
+|-----|----------------|
+| `scan_ruby` | Brakeman (static security analysis) + bundler-audit (CVE scan) |
+| `lint` | RuboCop with `rubocop-rails-omakase` style rules |
+| `test` | Full RSpec suite against a PostgreSQL 16 service container |
 
 ---
 
