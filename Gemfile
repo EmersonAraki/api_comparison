@@ -13,7 +13,7 @@ gem "graphql", "~> 2.3"
 gem "grpc", "~> 1.65"
 
 group :development do
-  gem "grpc-tools", "~> 1.65"
+  gem "grpc-tools", "~> 1.81"
   gem "brakeman", require: false
   gem "rubocop-rails-omakase", require: false
   gem "bundler-audit", require: false
