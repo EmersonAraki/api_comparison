@@ -10,7 +10,7 @@ gem "puma", ">= 5.0"
 gem "bootsnap", require: false
 
 gem "graphql", "~> 2.3"
-gem "grpc", "~> 1.65"
+gem "grpc", "~> 1.81"
 
 group :development do
   gem "grpc-tools", "~> 1.65"
